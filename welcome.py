@@ -18,8 +18,9 @@ async def welcome_new_member(
 
         message = (
             f"👋 Welcome, {name}!\n\n"
-            "Thanks for joining our community.\n"
-            "Feel free to ask questions and participate!"
+            "Thanks for joining Code on the Go Discussions!\n"
+            "You can download the app from https://www.appdevforall.org/code-on-the-go/"
+            "Please note that our main support forum is at https://github.com/appdevforall/CodeOnTheGo/discussions"
         )
 
         await update.message.reply_text(message)
