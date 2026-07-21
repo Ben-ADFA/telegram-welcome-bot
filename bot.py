@@ -18,10 +18,13 @@ logging.basicConfig(
 
 async def daily_welcome(context: ContextTypes.DEFAULT_TYPE):
     message = (
-        "👋 Welcome to the Code on the Go community!\n\n"
-        "Feel free to ask questions, share projects, "
-        "and help other members.\n\n"
-        "Have a great day!"
+            "Thanks for visiting Code on the Go Discussions!\n\n"
+            "To any new users, feel free to introduce yourself and tell us why you're using Code on the Go.\n\n"
+            "If you haven't done so, you can download the app here:\n"
+            "https://www.appdevforall.org/code-on-the-go/\n\n"
+            "If you need help, please note that our main support forum is here:\n"
+            "https://github.com/appdevforall/CodeOnTheGo/discussions\n\n"
+            "We look forward to hearing from you!\n\n"
     )
 
     await context.bot.send_message(
