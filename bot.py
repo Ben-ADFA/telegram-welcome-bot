@@ -37,7 +37,7 @@ def main():
 
     app.job_queue.run_daily(
         daily_welcome,
-        time=time(hour=7, minute=0, tzinfo=pacific)
+        time=time(hour=9, minute=0, tzinfo=pacific)
     )
 
     print("Community Bot is running...")
