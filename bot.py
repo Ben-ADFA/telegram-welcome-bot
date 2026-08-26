@@ -1,14 +1,12 @@
 import logging
 from datetime import time
 from zoneinfo import ZoneInfo
-
+from telegram import LinkPreviewOptions
 from telegram.ext import (
     Application,
     ContextTypes
 )
-
 from config import BOT_TOKEN, CHAT_ID
-
 
 logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s",
@@ -26,25 +24,21 @@ async def daily_welcome(context: ContextTypes.DEFAULT_TYPE):
             "https://github.com/appdevforall/CodeOnTheGo/discussions\n\n"
             "We look forward to hearing from you!\n\n"
     )
-
     await context.bot.send_message(
         chat_id=CHAT_ID,
-        text=message
+        text=message,
+        link_preview_options=LinkPreviewOptions(is_disabled=True)
     )
 
 
 def main():
     app = Application.builder().token(BOT_TOKEN).build()
-
     pacific = ZoneInfo("America/Los_Angeles")
-
     app.job_queue.run_daily(
         daily_welcome,
         time=time(hour=9, minute=30, tzinfo=pacific)
     )
-
     print("Community Bot is running...")
-
     app.run_polling()
 
 
