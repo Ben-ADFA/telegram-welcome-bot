@@ -1,4 +1,4 @@
-from telegram import Update
+from telegram import Update, LinkPreviewOptions
 from telegram.ext import ContextTypes
 
 
@@ -8,14 +8,11 @@ async def welcome_new_member(
 ):
     if not update.message:
         return
-
     for member in update.message.new_chat_members:
         # Ignore bots joining
         if member.is_bot:
             continue
-
         name = member.first_name
-
         message = (
             "Thanks for visiting Code on the Go Discussions!\n\n"
             "To any new users, feel free to introduce yourself and tell us why you're using Code on the Go.\n\n"
@@ -25,5 +22,7 @@ async def welcome_new_member(
             "https://github.com/appdevforall/CodeOnTheGo/discussions\n\n"
             "We look forward to hearing from you!\n\n"
         )
-
-        await update.message.reply_text(message)
+        await update.message.reply_text(
+            message,
+            link_preview_options=LinkPreviewOptions(is_disabled=True)
+        )
