@@ -16,13 +16,16 @@ logging.basicConfig(
 
 async def daily_welcome(context: ContextTypes.DEFAULT_TYPE):
     message = (
-            "Thanks for visiting Code on the Go Discussions!\n\n"
-            "To any new users, feel free to introduce yourself and tell us why you're using Code on the Go.\n\n"
+            "Thanks for visiting Code on the Go Official!\n\n"
+            "Due to U.S. government sanctions, this is a one-way communication channel, "
+            "meaning we do not reply to messages on Telegram. "
+            "To read about the sanctions, please visit:\n"
+            "https://appdevforall.org/updated-support-policy/\n\n"
             "If you haven't done so, you can download the app here:\n"
             "https://www.appdevforall.org/code-on-the-go/\n\n"
-            "If you need help, please note that our main support forum is here:\n"
+            "If you need help, please visit our main support forum:\n"
             "https://github.com/appdevforall/CodeOnTheGo/discussions\n\n"
-            "We look forward to hearing from you!\n\n"
+            "Thanks for using the app!\n\n"
     )
     await context.bot.send_message(
         chat_id=CHAT_ID,
@@ -34,10 +37,19 @@ async def daily_welcome(context: ContextTypes.DEFAULT_TYPE):
 def main():
     app = Application.builder().token(BOT_TOKEN).build()
     pacific = ZoneInfo("America/Los_Angeles")
+
+    # Posts twice daily: 6:30 AM and 6:30 PM Pacific
     app.job_queue.run_daily(
         daily_welcome,
-        time=time(hour=9, minute=30, tzinfo=pacific)
+        time=time(hour=6, minute=30, tzinfo=pacific),
+        name="welcome_morning"
     )
+    app.job_queue.run_daily(
+        daily_welcome,
+        time=time(hour=18, minute=30, tzinfo=pacific),
+        name="welcome_evening"
+    )
+
     print("Community Bot is running...")
     app.run_polling()
 
